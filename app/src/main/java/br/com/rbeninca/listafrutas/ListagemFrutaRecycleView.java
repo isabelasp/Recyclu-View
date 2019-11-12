@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,10 +41,14 @@ public class ListagemFrutaRecycleView extends AppCompatActivity {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Toast.makeText(
+
+
+                        Intent intent = new Intent(
                                 getApplicationContext(),
-                                frutaController.FRUTAS[position].getNome(),
-                                Toast.LENGTH_LONG).show();
+                                ExibeFruta.class);
+
+                        intent.putExtra("id", position);
+                        startActivity(intent);
                     }
 
                     @Override
