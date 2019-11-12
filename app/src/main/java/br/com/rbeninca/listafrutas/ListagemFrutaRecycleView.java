@@ -5,6 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 public class ListagemFrutaRecycleView extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -21,7 +24,7 @@ public class ListagemFrutaRecycleView extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( this);
         recyclerView.setLayoutManager(layoutManager);
 
-        FrutaController frutaController = new FrutaController();
+        final FrutaController frutaController = new FrutaController();
 
         FrutaAdapterRecyclerView frutaAdapterRecycleView = new FrutaAdapterRecyclerView(
                 getApplicationContext(),
@@ -30,6 +33,30 @@ public class ListagemFrutaRecycleView extends AppCompatActivity {
         );
 
         recyclerView.setAdapter(frutaAdapterRecycleView);
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
+                getApplicationContext(),
+                recyclerView,
+                new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                frutaController.FRUTAS[position].getNome(),
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    }
+                }
+        ));
 
     }
 }

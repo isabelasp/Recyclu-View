@@ -3,7 +3,10 @@ package br.com.rbeninca.listafrutas;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ListagemFrutaListView extends AppCompatActivity {
     ListView listView;
@@ -14,7 +17,7 @@ public class ListagemFrutaListView extends AppCompatActivity {
 
         listView=findViewById(R.id.listView);
 
-        FrutaController frutaController = new FrutaController();
+        final FrutaController frutaController = new FrutaController();
 
         FrutaAdapter  frutaAdapter =new FrutaAdapter(
                 getApplicationContext(),
@@ -24,6 +27,14 @@ public class ListagemFrutaListView extends AppCompatActivity {
 
         listView.setAdapter(frutaAdapter);
 
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(
+                        getApplicationContext(),
+                        frutaController.FRUTAS[i].getNome(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
